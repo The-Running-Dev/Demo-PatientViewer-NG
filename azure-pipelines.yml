@@ -19,5 +19,5 @@ steps:
 - task: PublishBuildArtifacts@1
   inputs:
     artifactName: artifacts
-    PathtoPublish: '$(System.DefaultWorkingDirectory)\artifacts'
+    PathtoPublish: '$(System.DefaultWorkingDirectory)/artifacts'
   displayName: 'Publishing Artifacts'
