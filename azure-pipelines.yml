@@ -14,10 +14,10 @@ steps:
     npm install -g @angular/cli
     npm install
     npm run test
-    npm run prod
+    npm run build:prod
   displayName: 'Install Dependencies and Build'
 - task: PublishBuildArtifacts@1
   inputs:
     artifactName: artifacts
-    pathtoPublish: 'artifacts'
+    PathtoPublish: '$(System.DefaultWorkingDirectory)\artifacts'
   displayName: 'Publishing Artifacts'
