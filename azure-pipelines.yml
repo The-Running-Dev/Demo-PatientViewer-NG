@@ -14,7 +14,7 @@ steps:
     npm install -g @angular/cli
     npm install
     npm run test
-    npm run build-prod
+    npm run prod
   displayName: 'Install Dependencies and Build'
 - task: PublishBuildArtifacts@1
   inputs:
