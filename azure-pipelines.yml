@@ -10,7 +10,7 @@ steps:
     versionSpec: '12.x'
   displayName: 'Install Node.js'
 
-- script: |
+- script:
     npm install -g @angular/cli
     npm install
     npm run test

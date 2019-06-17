@@ -13,7 +13,7 @@
                 "build": {
                     "builder": "@angular-devkit/build-angular:browser",
                     "options": {
-                        "outputPath": "../AngularUI",
+                        "outputPath": "artifacts",
                         "index": "src/index.html",
                         "main": "src/main.ts",
                         "polyfills": "src/polyfills.ts",
@@ -24,7 +24,7 @@
                             "src/assets",
                             "src/config",
                             "src/web.config",
-                            "src/PatientViewer-NG - Web Deploy.xml"
+                            "src/web.deploy.xml"
                         ],
                         "styles": [
                             "node_modules/font-awesome/css/font-awesome.min.css",
@@ -90,9 +90,7 @@
                         "assets": [
                             "src/favicon.ico",
                             "src/assets",
-                            "src/config",
-                            "src/web.config",
-                            "src/PatientViewer-NG - Web Deploy.xml"
+                            "src/config"
                         ],
                         "styles": [
                             "src/assets/css/styles.css"
