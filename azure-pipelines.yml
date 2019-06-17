@@ -10,14 +10,25 @@ steps:
     versionSpec: '12.x'
   displayName: 'Install Node.js'
 
-- script:
-    npm install -g @angular/cli
-    npm install
-    npm run test
-    npm run prod
-  displayName: 'Install Dependencies and Build'
-- task: PublishBuildArtifacts@1
+- task: Npm@1
+  displayName: 'Installing NPM Dependencies'
   inputs:
-    artifactName: artifacts
-    PathtoPublish: '$(System.DefaultWorkingDirectory)/artifacts'
-  displayName: 'Publishing Artifacts'
+    command: install
+
+- task: Npm@1
+  displayName: 'Building Angular Application'
+  inputs:
+    command: custom
+    customCommand: run build -- --prod
+
+- task: PublishPipelineArtifact@0
+  displayName: 'Publishing Pipeline Artifacts'
+  inputs:
+    artifactName: angular
+    targetPath: 'artifacts'
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publishing Build Artifacts'
+  inputs:
+    artifactName: angular2
+    pathtoPublish: 'artifacts'

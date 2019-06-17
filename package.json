@@ -3,7 +3,6 @@
     "version": "1.0.0",
     "scripts": {
         "build": "ng build",
-        "prod": "ng build --prod",
         "e2e": "ng e2e",
         "lint": "ng lint",
         "ng": "ng",
