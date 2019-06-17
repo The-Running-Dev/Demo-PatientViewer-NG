@@ -8,7 +8,7 @@ steps:
 - task: NodeTool@0
   inputs:
     versionSpec: '12.x'
-  displayName: 'Install Node.js'
+  displayName: 'Installing Node.js'
 
 - task: Npm@1
   displayName: 'Installing NPM Dependencies'
@@ -21,14 +21,8 @@ steps:
     command: custom
     customCommand: run build -- --prod
 
-- task: PublishPipelineArtifact@0
-  displayName: 'Publishing Pipeline Artifacts'
-  inputs:
-    artifactName: angular
-    targetPath: 'artifacts'
-
 - task: PublishBuildArtifacts@1
   displayName: 'Publishing Build Artifacts'
   inputs:
-    artifactName: angular2
+    artifactName: angular
     pathtoPublish: 'artifacts'
