@@ -1,0 +1,9 @@
+body .ui-table .ui-table-caption {
+    background-color: #242726;
+    border: none;
+    padding: 0.571em 0;
+}
+
+.ui-paginator {
+    text-align: right;
+}
