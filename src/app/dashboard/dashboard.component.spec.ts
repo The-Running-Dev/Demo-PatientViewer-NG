@@ -1,28 +1,15 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TableModule } from 'primeng/table';
-import { of } from 'rxjs';
 
-import { AppConfig } from '../models';
-import { ConfigService, PatientService } from '../services';
+import { ConfigService, PatientService, StateService } from '../services';
+import { ConfigServiceStub, PatientServiceStub } from '../services/index.stubs';
 
 import { DashboardComponent } from './dashboard.component';
 
 describe('DashboardComponent', () => {
     let component: DashboardComponent;
     let fixture: ComponentFixture<DashboardComponent>;
-
-    const configServiceStub = {
-        Load() {
-            return new AppConfig();
-        }
-    };
-
-    const patientServiceStub = {
-        GetAll() {
-            return of([{id: 1}]);
-        }
-    };
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
@@ -33,8 +20,9 @@ describe('DashboardComponent', () => {
                 DashboardComponent
             ],
             providers: [
-                {provide: ConfigService, useValue: configServiceStub},
-                {provide: PatientService, useValue: patientServiceStub}
+                {provide: ConfigService, useValue: ConfigServiceStub},
+                {provide: PatientService, useValue: PatientServiceStub},
+                StateService
             ]
         }).compileComponents();
 

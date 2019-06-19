@@ -1,6 +1,6 @@
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { Injector } from '@angular/core';
-import { TestBed, async, inject } from '@angular/core/testing';
+import { Injector, Type } from '@angular/core';
+import { TestBed, async } from '@angular/core/testing';
 import { environment } from '../../environments/environment';
 
 import { AppConfig } from '../models';
@@ -33,16 +33,16 @@ describe('ConfigService', () => {
         });
 
         service = injector.get(ConfigService);
-        httpMock = injector.get(HttpTestingController);
+        httpMock = injector.get<HttpTestingController>(HttpTestingController as Type<HttpTestingController>);
     });
 
     afterEach(() => {
         httpMock.verify();
     });
 
-    it('Should Create the Config Service', inject([ConfigService], (svc: ConfigService) => {
-        expect(svc).toBeTruthy();
-    }));
+    it('Should Create the Config Service', () => {
+        expect(service).toBeTruthy();
+    });
 
     it('Should Load the Default Configuration', async(() => {
         service.Load().then((data) => {
@@ -56,7 +56,7 @@ describe('ConfigService', () => {
     }));
 
     it('Should Get a Api Url by Its Key', async(() => {
-        service.Load().then((data) => {
+        service.Load().then(() => {
             expect(service.GetApiUrl('Patient')).toEqual(`${environment.apiUrl}/${mockConfig.ApiUrls.Patient}`);
         });
 

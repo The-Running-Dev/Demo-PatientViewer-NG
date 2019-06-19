@@ -18,7 +18,7 @@ describe('AppHeaderComponent', () => {
         fixture.detectChanges();
     });
 
-    it('Should Create', () => {
+    it('Should Create the App Header Component', () => {
         expect(component).toBeTruthy();
     });
 });

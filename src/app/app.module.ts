@@ -5,23 +5,26 @@ import { NgModule } from '@angular/core';
 
 import { TableModule } from 'primeng/table';
 
-import { ApiErrorService, ConfigService, ConfigServiceFactory, PatientService } from './services';
-import { AppComponent } from './app.component';
+import { ApiErrorService, ConfigService, ConfigServiceFactory, PatientService, StateService } from './services';
 import { AppConfig } from './models';
-import { AppHeaderComponent, AppSidebarComponent } from './layout-components/';
 import { AppRoutingModule } from './app-routing.module';
+
+import { AppComponent } from './app.component';
+import { AppLoadingComponent, AppHeaderComponent, AppSidebarComponent, AppTitleComponent } from './layout-components/';
 import { DashboardComponent } from './dashboard/dashboard.component';
 
 const APP_SERVICES = [
+    ApiErrorService,
     ConfigService,
     PatientService,
-    ApiErrorService
+    StateService
 ];
 
 const APP_COMPONENTS = [
     AppComponent,
     AppHeaderComponent,
     AppSidebarComponent,
+    AppTitleComponent,
     DashboardComponent
 ];
 
@@ -29,12 +32,14 @@ const APP_COMPONENTS = [
     declarations: [
         AppComponent,
         ...APP_COMPONENTS,
+        AppLoadingComponent,
+        AppTitleComponent
     ],
     imports: [
         AppRoutingModule,
         BrowserModule,
         HttpClientModule,
-        TableModule,
+        TableModule
     ],
     providers: [
         AppConfig,

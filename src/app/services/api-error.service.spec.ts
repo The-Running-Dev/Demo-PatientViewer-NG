@@ -1,6 +1,6 @@
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { Injector } from '@angular/core';
-import { TestBed, inject } from '@angular/core/testing';
+import { Injector, Type } from '@angular/core';
+import { TestBed } from '@angular/core/testing';
 
 import { ApiErrorService } from './api-error.service';
 
@@ -20,14 +20,14 @@ describe('ApiErrorService', () => {
         });
 
         service = injector.get(ApiErrorService);
-        httpMock = injector.get(HttpTestingController);
+        httpMock = injector.get<HttpTestingController>(HttpTestingController as Type<HttpTestingController>);
     });
 
     afterEach(() => {
         httpMock.verify();
     });
 
-    it('Should Create the Api Error Service', inject([ApiErrorService], (svc: ApiErrorService) => {
-        expect(svc).toBeTruthy();
-    }));
+    it('Should Create the API Error State Service', () => {
+        expect(service).toBeTruthy();
+    });
 });

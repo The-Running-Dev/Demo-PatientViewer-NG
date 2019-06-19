@@ -1,23 +1,10 @@
+import { Injector, Type } from '@angular/core';
+import { TestBed, async } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { Injector } from '@angular/core';
-import { TestBed, async, inject } from '@angular/core/testing';
 
-import { AppConfig, Patient } from '../models';
-import { ConfigService } from './config.service';
-import { PatientService } from './patient.service';
-
-export const MockData = [
-    {UniqueIdentifier: '1', Name: 'Name 1'} as Patient,
-    {UniqueIdentifier: '2', Name: 'Name 2'} as Patient,
-    {UniqueIdentifier: '3', Name: 'Name 3'} as Patient
-];
-
-const configServiceStub = {
-    Config: new AppConfig(),
-    GetApiUrl() {
-        return '/patient';
-    }
-};
+import { AppConfig } from '../models';
+import { ConfigService, PatientService } from './';
+import { ConfigServiceStub, MockPatientData } from './index.stubs';
 
 describe('PatientService', () => {
     let injector: Injector;
@@ -31,35 +18,32 @@ describe('PatientService', () => {
             ],
             providers: [
                 AppConfig,
-                {
-                    provide: ConfigService,
-                    useValue: configServiceStub
-                },
+                {provide: ConfigService, useValue: ConfigServiceStub},
                 Injector,
                 PatientService
             ]
         });
 
         service = injector.get(PatientService);
-        httpMock = injector.get(HttpTestingController);
+        httpMock = injector.get<HttpTestingController>(HttpTestingController as Type<HttpTestingController>);
     });
 
     afterEach(() => {
         httpMock.verify();
     });
 
-    it('Should Create the Patient Service', inject([PatientService], (svc: PatientService) => {
-        expect(svc).toBeTruthy();
-    }));
+    it('Should Create the Patient Service', () => {
+        expect(service).toBeTruthy();
+    });
 
     it('Should Get All the Patients', async(() => {
         service.GetAll().subscribe((patients) => {
             expect(patients.length).toBe(3);
-            expect(patients).toEqual(MockData);
+            expect(patients).toEqual(MockPatientData);
         });
 
         const req = httpMock.expectOne(`/patient/`);
         expect(req.request.method).toEqual('GET');
-        req.flush(MockData);
+        req.flush(MockPatientData);
     }));
 });
