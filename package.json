@@ -7,7 +7,8 @@
         "lint": "ng lint",
         "ng": "ng",
         "start": "ng serve -o",
-        "test": "ng test --code-coverage"
+        "test": "ng test --code-coverage",
+        "test-dev": "ng test --watch"
     },
     "private": false,
     "dependencies": {
@@ -27,6 +28,7 @@
         "primeicons": "^1.0.0",
         "primeng": "^8.0.0",
         "rxjs": "~6.4.0",
+        "spinkit": "^1.2.5",
         "tslib": "^1.9.0",
         "vali-admin": "^2.4.1",
         "zone.js": "~0.9.1"
