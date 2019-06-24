@@ -3,7 +3,7 @@
         <div class="tile">
             <div class="tile-body">
                 <p-table #dt [value]="patients" [paginator]="true" paginatorPosition="top" [rows]="10" sortField="Name"
-                    [globalFilterFields]="['Name','DateOfBirth','PostCode']">
+                    [globalFilterFields]="['Name','DateOfBirth','PostalCode']">
                     <ng-template pTemplate="caption">
                         <div style="text-align: right">
                             Search:
@@ -27,7 +27,7 @@
                         <tr>
                             <td>{{patient.Name}}</td>
                             <td>{{patient.DateOfBirth | date :'fullDate'}}</td>
-                            <td>{{patient.PostCode}}</td>
+                            <td>{{patient.PostalCode}}</td>
                         </tr>
                     </ng-template>
                 </p-table>

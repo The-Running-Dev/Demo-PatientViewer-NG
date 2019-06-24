@@ -4,6 +4,9 @@ import { HttpClient } from '@angular/common/http';
 import { AppConfig } from '../models';
 import { environment } from '../../environments/environment';
 
+// @ts-ignore
+import ConfigJson from '../../config.json';
+
 @Injectable()
 export class ConfigService {
     constructor(
@@ -16,19 +19,8 @@ export class ConfigService {
         return `${environment.apiUrl}/${endPointUrl}`;
     }
 
-    public Load(): Promise<AppConfig> {
-        return new Promise((resolve) => {
-            this.http.get('config/config.json')
-                .subscribe((config: AppConfig) => {
-                    this.Config = config;
-
-                    resolve(this.Config);
-                }, (error: any) => {
-                    this.Config = new AppConfig();
-
-                    resolve(this.Config);
-                });
-        });
+    public Load(): void {
+        this.Config = ConfigJson as AppConfig;
     }
 }
 

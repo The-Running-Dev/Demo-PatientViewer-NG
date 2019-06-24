@@ -1,16 +1,17 @@
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { Injector, Type } from '@angular/core';
-import { TestBed, async } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import { environment } from '../../environments/environment';
 
 import { AppConfig } from '../models';
 import { ConfigService } from './config.service';
 
 const mockConfig = {
-    Version: '1.0',
-    ProductionMode: false,
+    Version: '1.0.0-develop',
+    AllowDiagnostics: true,
+    EnableDiagnostics: true,
     ApiUrls: {
-        Patient: 'Patient'
+        Patient: 'patient'
     }
 } as AppConfig;
 
@@ -32,35 +33,24 @@ describe('ConfigService', () => {
             ]
         });
 
-        service = injector.get(ConfigService);
-        httpMock = injector.get<HttpTestingController>(HttpTestingController as Type<HttpTestingController>);
-    });
-
-    afterEach(() => {
-        httpMock.verify();
+        service = TestBed.get(ConfigService);
+        httpMock = TestBed.get<HttpTestingController>(HttpTestingController as Type<HttpTestingController>);
     });
 
     it('Should Create the Config Service', () => {
         expect(service).toBeTruthy();
     });
 
-    it('Should Load the Default Configuration', async(() => {
-        service.Load().then((data) => {
-            expect(data).toBeDefined();
-            expect(data).toEqual(mockConfig);
-        });
+    it('Should Load the Default Configuration', () => {
+        service.Load();
 
-        const req = httpMock.expectOne(`config/config.json`);
-        expect(req.request.method).toEqual('GET');
-        req.flush(mockConfig);
-    }));
+        expect(service.Config).toBeDefined();
+        expect(service.Config).toEqual(mockConfig);
+    });
 
-    it('Should Get a Api Url by Its Key', async(() => {
-        service.Load().then(() => {
-            expect(service.GetApiUrl('Patient')).toEqual(`${environment.apiUrl}/${mockConfig.ApiUrls.Patient}`);
-        });
+    it('Should Get a Api Url by Its Key', () => {
+        service.Load();
 
-        const req = httpMock.expectOne(`config/config.json`);
-        req.flush(mockConfig);
-    }));
+        expect(service.GetApiUrl('patient')).toEqual(`${environment.apiUrl}/${mockConfig.ApiUrls.Patient}`);
+    });
 });

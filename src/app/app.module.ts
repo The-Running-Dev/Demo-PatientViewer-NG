@@ -3,15 +3,19 @@ import { APP_INITIALIZER } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
+import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { TableModule } from 'primeng/table';
 
-import { ApiErrorService, ConfigService, ConfigServiceFactory, PatientService, StateService } from './services';
+import {
+    ApiErrorService, ConfigService, ConfigServiceFactory,
+    PatientService, PatientInMemoryService, StateService
+} from './services';
 import { AppConfig } from './models';
-import { AppRoutingModule } from './app-routing.module';
-
 import { AppComponent } from './app.component';
 import { AppLoadingComponent, AppHeaderComponent, AppSidebarComponent, AppTitleComponent } from './layout-components/';
+import { AppRoutingModule } from './app-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { environment } from '../environments/environment';
 
 const APP_SERVICES = [
     ApiErrorService,
@@ -23,6 +27,7 @@ const APP_SERVICES = [
 const APP_COMPONENTS = [
     AppComponent,
     AppHeaderComponent,
+    AppLoadingComponent,
     AppSidebarComponent,
     AppTitleComponent,
     DashboardComponent
@@ -30,15 +35,14 @@ const APP_COMPONENTS = [
 
 @NgModule({
     declarations: [
-        AppComponent,
-        ...APP_COMPONENTS,
-        AppLoadingComponent,
-        AppTitleComponent
+        ...APP_COMPONENTS
     ],
     imports: [
         AppRoutingModule,
         BrowserModule,
         HttpClientModule,
+        environment.production ?
+            [] : HttpClientInMemoryWebApiModule.forRoot(PatientInMemoryService, {passThruUnknownUrl: true, delay: 2000}),
         TableModule
     ],
     providers: [

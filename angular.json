@@ -22,7 +22,7 @@
                         "assets": [
                             "src/favicon.ico",
                             "src/assets",
-                            "src/config",
+                            "src/config.json",
                             "src/web.config",
                             "src/web.deploy.xml"
                         ],
@@ -32,6 +32,7 @@
                             "node_modules/primeng/resources/themes/luna-amber/theme.css",
                             "node_modules/primeng/resources/primeng.min.css",
                             "node_modules/primeicons/primeicons.css",
+                            "node_modules/spinkit/css/spinkit.css",
                             "src/assets/css/styles.css"
                         ],
                         "scripts": [
