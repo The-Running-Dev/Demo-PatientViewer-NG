@@ -4,6 +4,7 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 
+name: $(Date:yyyy.MM.dd)$(Rev:.r)
 steps:
 - task: NodeTool@0
   inputs:
@@ -16,7 +17,13 @@ steps:
     command: install
 
 - task: Npm@1
-  displayName: 'Building Angular Application'
+  displayName: 'Linting the Application'
+  inputs:
+    command: custom
+    customCommand: run lint --  --format=stylish
+
+- task: Npm@1
+  displayName: 'Building the Application'
   inputs:
     command: custom
     customCommand: run build -- --prod
@@ -26,3 +33,14 @@ steps:
   inputs:
     artifactName: angular
     pathtoPublish: 'artifacts'
+
+- task: GitHubRelease@0
+  displayName: 'Creating GitHub Release'
+  inputs:
+    gitHubConnection: 'PatientViewer-NG-GitHub'
+    repositoryName: '$(Build.Repository.Name)'
+    action: 'create'
+    target: '$(Build.SourceVersion)'
+    tagSource: 'auto'
+    tag: $(Build.BuildNumber)
+
