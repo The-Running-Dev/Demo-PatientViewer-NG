@@ -37,10 +37,10 @@ steps:
 - task: GitHubRelease@0
   displayName: 'Creating GitHub Release'
   inputs:
-    gitHubConnection: 'PatientViewer-NG-GitHub'
-    repositoryName: '$(Build.Repository.Name)'
-    action: 'create'
-    target: '$(Build.SourceVersion)'
-    tagSource: 'auto'
+    gitHubConnection: PatientViewer-NG-GitHub
+    repositoryName: $(Build.Repository.Name)
+    action: create
+    target: $(Build.SourceVersion)
+    tagSource: manual
     tag: $(Build.BuildNumber)
 
