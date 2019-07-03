@@ -1,0 +1,2 @@
+# Set the repository languge to TypeScript
+*.* linguist-language=TypeScript
